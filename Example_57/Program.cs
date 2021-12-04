@@ -3,58 +3,57 @@
 // 57. Написать программу, упорядочивания по убыванию элементы каждой строки двумерной массива. 
 
 
-int[,] FillArray(int[,] array, int leftBound, int rightBound)
+int[,] FillMatrix(int[,] matrix, int leftBound, int rightBound)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            array[i, j] = new Random().Next(leftBound, rightBound);
+            matrix[i, j] = new Random().Next(leftBound, rightBound);
         }
     }
-    return array;
+    return matrix;
 }
 
 // Печать массива
 
-void PrintArray(int[,] array)
+void PrintMatrix(int[,] matrix)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            Console.Write(array[i, j] + " ");
+            Console.Write(matrix[i, j] + " ");
         }
         Console.WriteLine();
     }
 }
 
-// 57. Написать программу, упорядочивания по убыванию элементы каждой строки двумерной массива. 
 
-int[,] OrderingArray(int[,] array)
+int[,] SortArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        int index = array[0,0];
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            if (array[i, j] < array[i, j] + 1)
+            int minPosition = j;
+            for (int k = j + 1; k < array.GetLength(1); k++)
             {
-                //index = index[i, j] + 1;
+                if (array[i, k] > array[i, minPosition]) minPosition = k;
             }
+            int temp = array[i, j];
+            array[i, j] = array[i, minPosition];
+            array[i, minPosition] = temp;
         }
     }
     return array;
 }
 
 
-int[,] orderingArray = new int[6, 10];
+int[,] orderingArray = new int[5, 5];
 
-orderingArray = FillArray(orderingArray, 1, 10);
-PrintArray(orderingArray);
-OrderingArray(orderingArray);
-
-
-// diagonalSum = FillArray(diagonalSum, 1, 10);
-// PrintArray(diagonalSum);
-// Console.WriteLine($"Сумма элементов главной диагонали = {FindDiagonalSum(diagonalSum)}");
+orderingArray = FillMatrix(orderingArray, 1, 10);
+PrintMatrix(orderingArray);
+SortArray(orderingArray);
+System.Console.WriteLine();
+PrintMatrix(orderingArray);
